@@ -36,7 +36,8 @@ public class SelfCheck
     private int items[] = new int[6];
     private double subtotal = -1;
     private double total;
-    private final double TAX = 0.06;
+    private double tax = -1;
+    private final double TAX = 0.055;
 
     private static Scanner in = new Scanner(System.in);
 
@@ -50,31 +51,45 @@ public class SelfCheck
         return total;
     }
 
+    public double getTax()
+    {
+        return tax;
+    }
+
     public void getItems()
     {
-        for(int i = 0; i < (this.items.length / 2); i ++)
-        {
-            System.out.print("Enter the price of item "+ i +": ");
+        int j = 1;
+        for (int i = 0; i < (this.items.length); i+=2) {
+            System.out.print("Enter the price of item " + j + ": ");
             this.items[i] = Integer.valueOf(in.nextLine());
-            System.out.print("Enter the price of item "+ (++i) +": ");
-            this.items[i] = Integer.valueOf(in.nextLine());
+            System.out.print("Enter the quantity of item " + j + ": ");
+            this.items[i+1] = Integer.valueOf(in.nextLine());
+            j++;
         }
     }
 
     public void calcSubtotal()
     {
-        for(int i = 0; i < (this.items.length / 2); i ++)
-        {
-            this.subtotal +=  this.items[i] * this.items[++i];
+        this.subtotal = 0;
+        for (int i = 0; i < (this.items.length); i+=2) {
+            this.subtotal += this.items[i] * this.items[i+1];
         }
     }
 
     public void calcTotal()
     {
-        if(this.subtotal == -1)
-        {
+        if (this.subtotal == -1) {
             calcSubtotal();
         }
-        this.total = this.subtotal + (this.subtotal * this.TAX);
+        if (this.tax == -1)
+        {
+            calcTax();
+        }
+        this.total = this.subtotal + this.tax;
+    }
+
+    public void calcTax()
+    {
+        this.tax = this.subtotal * this.TAX;
     }
 }

@@ -8,7 +8,8 @@ package BASE;
 //Exercise 10 - Self-Checkout
 //Working with multiple inputs and currency can introduce some tricky precision issues.
 //
-//Create a simple self-checkout system. Prompt for the prices and quantities of three items. Calculate the subtotal of the items. Then calculate the tax using a tax rate of 5.5%. Print out the line items with the quantity and total, and then print out the subtotal, tax amount, and total.
+//Create a simple self-checkout system. Prompt for the prices and quantities of three items. Calculate the subtotal of the items.
+// Then calculate the tax using a tax rate of 5.5%. Print out the line items with the quantity and total, and then print out the subtotal, tax amount, and total.
 //
 //Example Output
 //Enter the price of item 1: 25
@@ -33,6 +34,24 @@ public class App
 {
     public static void main(String[] args)
     {
+        SelfCheck checkout = new SelfCheck();
+        App prog = new App();
 
+        //input
+        checkout.getItems();
+
+        //Calculate subtotal and total
+        checkout.calcSubtotal();
+        checkout.calcTotal();
+
+        //Output
+        prog.output(checkout.getSubtotal(), checkout.getTotal(), checkout.getTax());
+    }
+
+    public void output(double subtotal, double total, double tax)
+    {
+        System.out.println("Subtotal: $"+ subtotal);
+        System.out.println("Tax: $"+ tax);
+        System.out.println("Total: $"+ total);
     }
 }
